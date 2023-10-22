@@ -1,4 +1,4 @@
-﻿namespace rft.Repositories.Register
+﻿namespace rft.Repositories.RegisterRepository
 {
     public class RegisterRepository
     {

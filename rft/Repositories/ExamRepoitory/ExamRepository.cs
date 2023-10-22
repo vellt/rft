@@ -1,4 +1,4 @@
-﻿namespace rft.Repositories.Exam
+﻿namespace rft.Repositories.ExamRepository
 {
     public class ExamRepository
     {
