@@ -7,10 +7,10 @@ namespace rft.Repositories.RegisterRepository
         /// <summary>
         /// Betud a felhasználó íratkozni a megadott vizsgára
         /// </summary>
-        Task Create(Register regisztracio);
+        public Task Create(Register regisztracio);
         /// <summary>
         /// letud íratkozni a felhasználó a vizsgáról
         /// </summary>
-        Task Delete(int registracioId);
+        public Task Delete(int registracioId);
     }
 }

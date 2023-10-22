@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rft.Data;
 using rft.Models;
+using rft.Repositories.ExamRepository;
 
 namespace rft.Controllers
 {
@@ -14,33 +15,38 @@ namespace rft.Controllers
     [ApiController]
     public class ExamsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IExamRepository examRepository;
 
-        public ExamsController(DataContext context)
+        public ExamsController(IExamRepository examRepository)
         {
-            _context = context;
+            this.examRepository= examRepository;
         }
 
         // GET: api/Exams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exam>>> GetExams()
+        public async Task<ActionResult> GetExams()
         {
-          if (_context.Exams == null)
-          {
-              return NotFound();
-          }
-            return await _context.Exams.ToListAsync();
+            try
+            {
+                var result = examRepository.Get();
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         // GET: api/Exams/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Exam>> GetExam(int id)
+        [HttpGet("{examId}")]
+        public async Task<ActionResult<Exam>> GetExam(int examId)
         {
-          if (_context.Exams == null)
-          {
-              return NotFound();
-          }
-            var exam = await _context.Exams.FindAsync(id);
+            /*
+            if (_context.Exams == null)
+            {
+                return NotFound();
+            }
+            var exam = await _context.Exams.FindAsync(examId);
 
             if (exam == null)
             {
@@ -48,13 +54,17 @@ namespace rft.Controllers
             }
 
             return exam;
+            */
+
+            return NotFound();
         }
 
         // PUT: api/Exams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutExam(int id, Exam exam)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> PutExam(int userId, Exam exam)
         {
+            /*
             if (id != exam.Id)
             {
                 return BadRequest();
@@ -77,29 +87,35 @@ namespace rft.Controllers
                     throw;
                 }
             }
+            */
 
             return NoContent();
         }
 
         // POST: api/Exams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Exam>> PostExam(Exam exam)
+        [HttpPost("{userId}")]
+        public async Task<ActionResult<Exam>> PostExam(Exam exam, int userId)
         {
-          if (_context.Exams == null)
-          {
-              return Problem("Entity set 'DataContext.Exams'  is null.");
-          }
-            _context.Exams.Add(exam);
-            await _context.SaveChangesAsync();
+            //
+            /*
+             if (_context.Exams == null)
+             {
+                 return Problem("Entity set 'DataContext.Exams'  is null.");
+             }
+             _context.Exams.Add(exam);
+             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExam", new { id = exam.Id }, exam);
+             return CreatedAtAction("GetExam", new { id = exam.Id }, exam);
+            */
+            return NotFound();
         }
 
         // DELETE: api/Exams/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteExam(int id)
+        [HttpDelete("{examId}/{userId}")]
+        public async Task<IActionResult> DeleteExam(int examId, int userId)
         {
+            /*
             if (_context.Exams == null)
             {
                 return NotFound();
@@ -112,13 +128,13 @@ namespace rft.Controllers
 
             _context.Exams.Remove(exam);
             await _context.SaveChangesAsync();
-
+            */
             return NoContent();
         }
 
         private bool ExamExists(int id)
         {
-            return (_context.Exams?.Any(e => e.Id == id)).GetValueOrDefault();
+            return true;// (_context.Exams?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
