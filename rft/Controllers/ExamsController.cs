@@ -15,11 +15,11 @@ namespace rft.Controllers
     [ApiController]
     public class ExamsController : ControllerBase
     {
-        private readonly IExamRepository examRepository;
+        private readonly IExamRepository examRepo;
 
         public ExamsController(IExamRepository examRepository)
         {
-            this.examRepository= examRepository;
+            this.examRepo= examRepository;
         }
 
         // GET: api/Exams
@@ -28,12 +28,12 @@ namespace rft.Controllers
         {
             try
             {
-                var result = examRepository.Get();
+                var result = examRepo.Get();
                 return StatusCode(200, result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -41,55 +41,38 @@ namespace rft.Controllers
         [HttpGet("{examId}")]
         public async Task<ActionResult<Exam>> GetExam(int examId)
         {
-            /*
-            if (_context.Exams == null)
+            try
             {
-                return NotFound();
+                var result = examRepo.Get(examId);
+                return StatusCode(200, result);
             }
-            var exam = await _context.Exams.FindAsync(examId);
-
-            if (exam == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            return exam;
-            */
-
-            return NotFound();
         }
 
         // PUT: api/Exams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{userId}")]
-        public async Task<IActionResult> PutExam(int userId, Exam exam)
+        public async Task<IActionResult> PutExam(Exam exam, int userId)
         {
-            /*
-            if (id != exam.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(exam).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ExamExists(id))
+                if (ModelState.IsValid)
                 {
-                    return NotFound();
+                    var result = examRepo.Put(exam, userId);
+                    return StatusCode(200, result);
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
             }
-            */
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST: api/Exams
@@ -97,44 +80,45 @@ namespace rft.Controllers
         [HttpPost("{userId}")]
         public async Task<ActionResult<Exam>> PostExam(Exam exam, int userId)
         {
-            //
-            /*
-             if (_context.Exams == null)
-             {
-                 return Problem("Entity set 'DataContext.Exams'  is null.");
-             }
-             _context.Exams.Add(exam);
-             await _context.SaveChangesAsync();
-
-             return CreatedAtAction("GetExam", new { id = exam.Id }, exam);
-            */
-            return NotFound();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = examRepo.Post(exam, userId);
+                    return StatusCode(200, result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/Exams/5
         [HttpDelete("{examId}/{userId}")]
         public async Task<IActionResult> DeleteExam(int examId, int userId)
         {
-            /*
-            if (_context.Exams == null)
-            {
-                return NotFound();
-            }
-            var exam = await _context.Exams.FindAsync(id);
-            if (exam == null)
-            {
-                return NotFound();
-            }
 
-            _context.Exams.Remove(exam);
-            await _context.SaveChangesAsync();
-            */
-            return NoContent();
-        }
-
-        private bool ExamExists(int id)
-        {
-            return true;// (_context.Exams?.Any(e => e.Id == id)).GetValueOrDefault();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    examRepo.Delete(examId, userId);
+                    return StatusCode(200, "deleted");
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -355,3 +355,5 @@ C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\obj\Debug\net6.0\refint\Ap
 C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\obj\Debug\net6.0\ApiTests.pdb
 C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\obj\Debug\net6.0\ApiTests.genruntimeconfig.cache
 C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\obj\Debug\net6.0\ref\ApiTests.dll
+C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\bin\Debug\net6.0\xunit.abstractions.dll
+C:\Users\Szántó Benjámin\source\repos\rft\ApiTests\bin\Debug\net6.0\xunit.core.dll

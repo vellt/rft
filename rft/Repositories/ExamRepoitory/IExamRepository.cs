@@ -12,19 +12,19 @@ namespace rft.Repositories.ExamRepository
         /// <summary>
         /// Kilistázza az adott vizsgát és a benne lévő tanulókat is
         /// </summary>
-        public Task<Exam?> Get(int examId);
+        public Exam Get(int examId);
 
         /// <summary>
         /// Elkészít egy vizsgát, amennyiben a felhasználó az admin, vagy tanár
         /// </summary>
-        public Task<Exam> Create(Exam exam, User user);
+        public Exam Post(Exam exam, int userID);
         /// <summary>
         /// Frissít egy vizsgát, amennyiben a felhasználó az admin, vagy tanár
         /// </summary>
-        public Task Update(Exam exam, User user);
+        public Exam Put(Exam exam, int userID);
         /// <summary>
         /// Töröl egy vizsgát, amennyiben a felhasználó az admin, vagy tanár
         /// </summary>
-        public Task Delete(int examId, User user);
+        public void Delete(int examId, int userID);
     }
 }

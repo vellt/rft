@@ -13,33 +13,96 @@ namespace rft.Repositories.ExamRepository
             this.context = context;
         }
 
-        async Task<Exam> IExamRepository.Create(Exam exam, User user)
+        Exam IExamRepository.Post(Exam exam, int userID)
         {
-            context.Exams.Add(exam);
-            await context.SaveChangesAsync();
-            return exam;
-            // throw new NotImplementedException();
+            if(context.Exams != null)
+            {
+                if (context.Users.ToList().Where(x => x.Id == userID).Count() == 1) // van találat
+                {
+                    User user = context.Users.ToList().Where(x => x.Id == userID).Last();
+                    if (user.role == "admin" || user.role == "teacher")
+                    {
+                        exam.MakerID = user.Id; 
+                        context.Exams.Add(exam);
+                        context.SaveChanges();
+                        return exam;
+                    }
+                    else throw new Exception("No Access");
+                }
+                else throw new Exception("The function was called by an invalid user");
+            }
+            else throw new Exception("Entity set 'DataContext.Exams' is null.");
+
         }
 
-        Task IExamRepository.Delete(int examId, User user)
+        void IExamRepository.Delete(int examId, int userID)
         {
-            throw new NotImplementedException();
+            if (context.Users != null)
+            {
+                if (context.Exams != null)
+                {
+                    if (context.Users.ToList().Where(x => x.Id == userID).Count()> 0) // van user találat
+                    {
+                        if (context.Exams.ToList().Where(x => x.Id == examId).Count() > 0) // van exam találat
+                        {
+                            User user = context.Users.ToList().Where(x => x.Id == userID).Last();
+                            Exam exam = context.Exams.ToList().Where(x => x.Id == examId).Last();
+                            if (user.role == "admin" || user.role == "teacher")
+                            {
+                                context.Exams.Remove(exam);
+                                context.SaveChanges();
+                            }
+                            else throw new Exception("No Access");
+                        }
+                        else throw new Exception("The exam is not exist");   
+                    }
+                    else throw new Exception("The function was called by an invalid user");
+                }
+                else throw new Exception("Entity set 'DataContext.Exams' is null.");
+            }
+            else throw new Exception("Entity set 'DataContext.Users' is null.");
         }
 
         List<Exam> IExamRepository.Get()
         {
-            return context.Exams.ToList();
+            if (context.Exams != null)
+            {
+                return context.Exams.ToList();
+            }
+            else throw new Exception("Entity set 'DataContext.Exams' is null.");
         }
 
-        async Task<Exam?> IExamRepository.Get(int examId)
+        Exam IExamRepository.Get(int examId)
         {
-            var exam = await context.Exams.FindAsync(examId);
-            return exam;
+            if (context.Exams != null)
+            {
+                if (context.Exams.ToList().Where(x => x.Id == examId).Count() > 0) // van exam találat
+                {
+                    Exam exam = context.Exams.ToList().Where(x => x.Id == examId).Last();
+                    return exam;
+                }
+                else throw new Exception("The exam is not exist");
+            }
+            else throw new Exception("Entity set 'DataContext.Exams' is null.");
         }
 
-        Task IExamRepository.Update(Exam exam, User user)
+        Exam IExamRepository.Put(Exam exam, int userID)
         {
-            throw new NotImplementedException();
+            if (context.Exams != null)
+            {
+                if (context.Users.ToList().Where(x => x.Id == userID).Count() == 1) // van user találat
+                {
+                    User user = context.Users.ToList().Where(x => x.Id == userID).Last(); // később megnézem admin e
+                    if (user.role == "admin" || user.role == "teacher")
+                    {
+                        context.Entry(exam).State = EntityState.Modified;
+                        context.SaveChanges();
+                        return exam;
+                    }
+                    else throw new Exception("No Access");
+                }
+                else throw new Exception("The function was called by an invalid user");
+            }else throw new Exception("Entity set 'DataContext.Exams' is null.");
         }
     }
 }

@@ -14,43 +14,38 @@ using rft.Repositories.ExamRepository;
 namespace ApiTests
 {
     [TestClass]
-    public class EmployeeControllerTest
+    public class ExamsControllerTest
     {
-        private Mock<IExamRepository> _examRepositoryMock;
-        private Fixture fixture;
-        private ExamsController examsController;
-
-        public EmployeeControllerTest()
-        {
-            fixture = new Fixture();
-            _examRepositoryMock = new Mock<IExamRepository>(); 
-        }
-
         [TestMethod]
         public async Task GetExamReturnOkTest() {
+            Mock<IExamRepository> examRepositoryMock= new Mock<IExamRepository>();
+            Fixture fixture = new Fixture();
             var examList = fixture.CreateMany<Exam>(3).ToList();
 
-            _examRepositoryMock.Setup(repo => repo.Get()).Returns(examList);
-
-            examsController = new ExamsController(_examRepositoryMock.Object);
+            examRepositoryMock.Setup(repo => repo.Get()).Returns(examList);
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
 
             var result = await examsController.GetExams();
             var obj = result as ObjectResult;
+
 
             Assert.AreEqual(200, obj.StatusCode);
         }
 
         [TestMethod]
-        public async Task GetExamThrowException()
+        public async Task GetExamThrowExceptionTest()
         {
-            _examRepositoryMock.Setup(repo => repo.Get()).Throws(new Exception());
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            Fixture fixture = new Fixture();
+            examRepositoryMock.Setup(repo => repo.Get()).Throws(new Exception());
 
-            examsController = new ExamsController(_examRepositoryMock.Object);
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
 
             var result = await examsController.GetExams();
             var obj = result as ObjectResult;
 
             Assert.AreEqual(400, obj.StatusCode);
         }
+
     }
 }
