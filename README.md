@@ -8,7 +8,6 @@
 </p>
 
 <br>
-<br>
 
 # Rendszerfejlesztés technológiája és módszertana - BAI0168L
 
