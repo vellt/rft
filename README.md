@@ -9,7 +9,6 @@
 
 <br>
 <br>
-<br>
 
 # Rendszerfejlesztés technológiája és módszertana - BAI0168L
 
@@ -25,3 +24,6 @@
 > The University would like develop one for exam registration. 
 > - Teachers and administrators can create exams (with date, course, location, etc..)
 > - Students can register to the exams
+
+## Adatbázis szerkezete
+![image](https://github.com/vellt/rft/assets/61885011/df6773f4-7716-42e9-b416-96aa5331e029)
