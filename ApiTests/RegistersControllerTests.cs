@@ -1,7 +1,7 @@
 namespace ApiTests
 {
     [TestClass]
-    public class UnitTest1
+    public class RegistersControllerTests
     {
         [TestMethod]
         public void TestMethod1()

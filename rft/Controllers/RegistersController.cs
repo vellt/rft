@@ -49,7 +49,7 @@ namespace rft.Controllers
 
         // DELETE: api/Registers/5
         [HttpDelete("{registId}")]
-        public async Task<IActionResult> DeleteRegister(int registId)
+        public async Task<ActionResult> DeleteRegister(int registId)
         {
             try
             {

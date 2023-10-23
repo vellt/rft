@@ -39,7 +39,7 @@ namespace rft.Controllers
 
         // GET: api/Exams/5
         [HttpGet("{examId}")]
-        public async Task<ActionResult<Exam>> GetExam(int examId)
+        public async Task<ActionResult> GetExam(int examId)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace rft.Controllers
         // PUT: api/Exams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{userId}")]
-        public async Task<IActionResult> PutExam(Exam exam, int userId)
+        public async Task<ActionResult> PutExam(Exam exam, int userId)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace rft.Controllers
         // POST: api/Exams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("{userId}")]
-        public async Task<ActionResult<Exam>> PostExam(Exam exam, int userId)
+        public async Task<ActionResult> PostExam(Exam exam, int userId)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace rft.Controllers
 
         // DELETE: api/Exams/5
         [HttpDelete("{examId}/{userId}")]
-        public async Task<IActionResult> DeleteExam(int examId, int userId)
+        public async Task<ActionResult> DeleteExam(int examId, int userId)
         {
 
             try
