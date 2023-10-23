@@ -102,7 +102,8 @@ namespace rft.Repositories.ExamRepository
                     else throw new Exception("No Access");
                 }
                 else throw new Exception("The function was called by an invalid user");
-            }else throw new Exception("Entity set 'DataContext.Exams' is null.");
+            }
+            else throw new Exception("Entity set 'DataContext.Exams' is null.");
         }
     }
 }

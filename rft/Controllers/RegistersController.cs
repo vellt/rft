@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rft.Data;
 using rft.Models;
+using rft.Repositories.ExamRepository;
+using rft.Repositories.RegisterRepository;
 
 namespace rft.Controllers
 {
@@ -14,111 +16,72 @@ namespace rft.Controllers
     [ApiController]
     public class RegistersController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IRegisterRepository registerRepo;
 
-        public RegistersController(DataContext context)
+        public RegistersController(IRegisterRepository registerRepo)
         {
-            _context = context;
+            this.registerRepo = registerRepo;
         }
 
-        // GET: api/Registers
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Register>>> GetRegisters()
-        {
-          if (_context.Registers == null)
-          {
-              return NotFound();
-          }
-            return await _context.Registers.ToListAsync();
-        }
-
-        // GET: api/Registers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Register>> GetRegister(int id)
-        {
-          if (_context.Registers == null)
-          {
-              return NotFound();
-          }
-            var register = await _context.Registers.FindAsync(id);
-
-            if (register == null)
-            {
-                return NotFound();
-            }
-
-            return register;
-        }
-
-        // PUT: api/Registers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRegister(int id, Register register)
-        {
-            if (id != register.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(register).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RegisterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Registers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Register>> PostRegister(Register register)
         {
-          if (_context.Registers == null)
-          {
-              return Problem("Entity set 'DataContext.Registers'  is null.");
-          }
-            _context.Registers.Add(register);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRegister", new { id = register.Id }, register);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = registerRepo.Post(register);
+                    return StatusCode(200, result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/Registers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRegister(int id)
+        [HttpDelete("{registId}")]
+        public async Task<IActionResult> DeleteRegister(int registId)
         {
-            if (_context.Registers == null)
+            try
             {
-                return NotFound();
+                if (ModelState.IsValid)
+                {
+                    registerRepo.Delete(registId);
+                    return StatusCode(200, "deleted");
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            var register = await _context.Registers.FindAsync(id);
-            if (register == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            _context.Registers.Remove(register);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool RegisterExists(int id)
+        // GET: api/Users
+        [HttpGet]
+        public async Task<ActionResult> GetRegisters()
         {
-            return (_context.Registers?.Any(e => e.Id == id)).GetValueOrDefault();
+            try
+            {
+                var result = registerRepo.Get();
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
