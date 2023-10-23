@@ -4,6 +4,9 @@ namespace rft.Repositories.RegisterRepository
 {
     public interface IRegisterRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public List<Register> Get();
         /// <summary>
         /// Betud a felhasználó íratkozni a megadott vizsgára, és a vizsgát adja vissza,a mire beíratkozott
@@ -12,6 +15,6 @@ namespace rft.Repositories.RegisterRepository
         /// <summary>
         /// letud íratkozni a felhasználó a vizsgáról
         /// </summary>
-        public void Delete(int registracioId);
+        public void Delete(int registracioId, int userID);
     }
 }

@@ -48,14 +48,14 @@ namespace rft.Controllers
         }
 
         // DELETE: api/Registers/5
-        [HttpDelete("{registId}")]
-        public async Task<ActionResult> DeleteRegister(int registId)
+        [HttpDelete("{registId}/{userId}")]
+        public async Task<ActionResult> DeleteRegister(int registId, int userId)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    registerRepo.Delete(registId);
+                    registerRepo.Delete(registId, userId);
                     return StatusCode(200, "deleted");
                 }
                 else

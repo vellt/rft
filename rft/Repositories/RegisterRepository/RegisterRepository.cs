@@ -37,13 +37,19 @@ namespace rft.Repositories.RegisterRepository
             else throw new Exception("Entity set 'DataContext.Registers' is null.");
         }
 
-        void IRegisterRepository.Delete(int registracioId)
+        void IRegisterRepository.Delete(int registracioId, int userID)
         {
             if (context.Registers.ToList().Where(x => x.Id == registracioId).Count() > 0)
             {
-                Register register = context.Registers.ToList().Where(x => x.Id == registracioId).First();
-                context.Registers.Remove(register);
-                context.SaveChanges();
+                if (context.Users.ToList().Where(x => x.Id == userID).Count() > 0)
+                {
+                    Register register = context.Registers.ToList().Where(x => x.Id == registracioId).First();
+                    if (userID==register.UserId)
+                    {
+                        context.Registers.Remove(register);
+                        context.SaveChanges();
+                    } else throw new Exception("Not Access"); // ha nem ugya az a személy vagy aki létrehozta akkor nincs jogod törölni
+                } else throw new Exception("Invalid User");
             }
             else throw new Exception("Invalid Regisztáció");
         }
