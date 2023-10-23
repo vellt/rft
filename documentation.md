@@ -11,4 +11,5 @@ A projekt kivitelezéséhez mi a .NET Core alapú ASP.NET Web API keretrendszert
 Útvonalak (Route-ok) kialakításakor csak a legfontosabb végpontokat vettük figyelembe:
 <br>
 
-![KÉP2](https://github.com/vellt/rft/assets/61885011/3efcc44c-fa19-406f-a17d-05c79173c1a2)
+![KÉP2](https://github.com/vellt/rft/assets/61885011/118d7d2b-d29d-4465-b693-0e9d712f4194)
+
