@@ -20,8 +20,9 @@ The University would like develop one for exam registration.
 <p align="center">
  📝 <a href="https://github.com/vellt/rft/blob/master/documentation.md" target="_blank">dokumentáció</a> &nbsp&nbsp&nbsp&nbsp&nbsp
  ⚙️ <a href="https://github.com/vellt/rft/blob/master/api_test.md" target="_blank">API teszt</a> &nbsp&nbsp&nbsp&nbsp&nbsp
- ✅ <a href="https://github.com/vellt/rft/blob/master/ApiTests/ExamsControllerTests.cs" target="_blank">ExamsController Unit tesztek</a>&nbsp&nbsp&nbsp&nbsp&nbsp
- 🖥️ <a href="https://github.com/vellt/rft/blob/master/.github/workflows/dotnet.yml" target="_blank">CI-CD pipeline</a>
+ 🖥️ <a href="https://github.com/vellt/rft/blob/master/.github/workflows/dotnet.yml" target="_blank">CI-CD pipeline</a>&nbsp&nbsp&nbsp&nbsp&nbsp
+ ✅ <a href="https://github.com/vellt/rft/blob/master/ApiTests/ExamsControllerTests.cs" target="_blank">ExamsController Unit tesztek</a>
+ 
 </p>
 
 <br>
