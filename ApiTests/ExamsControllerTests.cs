@@ -14,10 +14,10 @@ using rft.Repositories.ExamRepository;
 namespace ApiTests
 {
     [TestClass]
-    public class ExamsControllerTest
+    public class ExamsControllerTests
     {
         [TestMethod]
-        public async Task GetExamReturnOkTest() {
+        public async Task GetExam_ReturnOk_StatusCodeTest() {
             Mock<IExamRepository> examRepositoryMock= new Mock<IExamRepository>();
             Fixture fixture = new Fixture();
             var examList = fixture.CreateMany<Exam>(3).ToList();
@@ -33,7 +33,7 @@ namespace ApiTests
         }
 
         [TestMethod]
-        public async Task GetExamThrowExceptionTest()
+        public async Task GetExam_ThrowException_StatusCodeTest()
         {
             Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
             Fixture fixture = new Fixture();
