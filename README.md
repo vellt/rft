@@ -18,10 +18,11 @@ The University would like develop one for exam registration.
 <br>
 
 <p align="center">
- 📝 <a href="https://github.com/vellt/rft/blob/master/documentation.md" target="_blank">dokumentáció</a> &nbsp&nbsp&nbsp&nbsp&nbsp
- 🌐 <a href="https://github.com/vellt/rft/blob/master/api_test.md" target="_blank">API teszt</a> &nbsp&nbsp&nbsp&nbsp&nbsp
- ⚙️ <a href="https://github.com/vellt/rft/actions" target="_blank">GitHub Actions</a>&nbsp&nbsp&nbsp&nbsp&nbsp
- 🖥️ <a href="https://github.com/vellt/rft/blob/master/.github/workflows/dotnet.yml" target="_blank">CI-CD pipeline</a>&nbsp&nbsp&nbsp&nbsp&nbsp
+ 📝 <a href="https://github.com/vellt/rft/blob/master/documentation.md" target="_blank">dokumentáció</a> &nbsp&nbsp&nbsp&nbsp
+ 🌐 <a href="https://github.com/vellt/rft/blob/master/api_test.md" target="_blank">API teszt</a> &nbsp&nbsp&nbsp&nbsp
+ ⚙️ <a href="https://github.com/vellt/rft/actions" target="_blank">GitHub Actions</a>&nbsp&nbsp&nbsp&nbsp
+ 🖼️ <a href="https://github.com/vellt/rft/actions" target="_blank">Frontend</a>&nbsp&nbsp&nbsp&nbsp
+ 🖥️ <a href="https://github.com/vellt/rft/blob/master/.github/workflows/dotnet.yml" target="_blank">CI-CD pipeline</a>&nbsp&nbsp&nbsp&nbsp
  ✅ <a href="https://github.com/vellt/rft/blob/master/ApiTests/ExamsControllerTests.cs" target="_blank">ExamsController Unit tesztek</a>
  
 </p>
