@@ -9,11 +9,18 @@
 - 👩‍💻 Verovszki Dominika
 - 👨‍💻 Szántó Benjámin
 
-## 📝 A Mock-os projektünket az alábbi leírás szerint valósítottuk meg
+## 📝 A Mock-os projekt témája
 Imagine a University where there is no existing digital administration system in place (like Neptun). 
 The University would like develop one for exam registration. 
 - Teachers and administrators can create exams (with date, course, location, etc..)
 - Students can register to the exams
+
+## ‼️ Főbb paraméterek a projekttel kapcsolatban
+- A témának megfelelően implementált alkalmazás, minimális frontendel.
+- Az alkalmazás Gitben kell, hogy legyen verziókezelve, és valamelyik megosztó oldalra feltöltve (pl Github, Gitlab).
+- Az alkalmazás logikájához Unit teszteket kell készíteni.
+- Az alkalmazáshoz egy minimális CI-CD pipelinet kell összerakni.
+- Valamint csak az egyik feladatot, a három közül elvégezni: Az alkalmazáshoz UI vagy API vagy Performance teszteket készíteni.
 
 <br>
 
