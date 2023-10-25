@@ -20,6 +20,12 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite("Data source=MyDatabase.db"));
 
+/*
+builder.Services.AddCors(p=>p.AddPolicy("crosspolicy", build =>
+{
+    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));*/
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +37,8 @@ if (app.Environment.IsDevelopment())
         options.DefaultModelsExpandDepth(-1);
     });
 }
+
+//app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 
