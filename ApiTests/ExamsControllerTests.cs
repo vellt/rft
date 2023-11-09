@@ -105,5 +105,76 @@ namespace ApiTests
             Assert.AreEqual(400, obj.StatusCode);
         }
 
+        [TestMethod]
+        public async Task GetExam_ValidExamId_ReturnsOkStatusAndData()
+        {
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            int examId = 1;
+            var examData = new Fixture().Create<Exam>();
+            examRepositoryMock.Setup(repo => repo.Get(examId)).Returns(examData);
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
+
+            var result = await examsController.GetExam(examId);
+            var obj = result as ObjectResult;
+
+            Assert.AreEqual(200, obj.StatusCode);
+            Assert.AreEqual(examData, obj.Value);
+        }
+
+        [TestMethod]
+        public async Task GetExam_ExceptionThrown_ReturnsBadRequestWithErrorMessage()
+        {
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            int examId = 1;
+            examRepositoryMock.Setup(repo => repo.Get(examId)).Throws(new Exception("Something went wrong"));
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
+
+            var result = await examsController.GetExam(examId);
+            var obj = result as ObjectResult;
+
+            Assert.AreEqual(400, obj.StatusCode);
+            Assert.AreEqual("Something went wrong", obj.Value);
+        }
+
+        [TestMethod]
+        public async Task DeleteExam_ValidData_ReturnsOkStatusAndMessageTest()
+        {
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            examRepositoryMock.Setup(repo => repo.Delete(It.IsAny<int>(), It.IsAny<int>()));
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
+
+            var result = await examsController.DeleteExam(1, 2);
+            var obj = result as ObjectResult;
+
+            Assert.AreEqual(200, obj.StatusCode);
+            Assert.AreEqual("deleted", obj.Value);
+        }
+
+        [TestMethod]
+        public async Task DeleteExam_InvalidData_ReturnsBadRequestStatusTest()
+        {
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
+
+            examsController.ModelState.AddModelError("examId", "Invalid examId");
+            var result = await examsController.DeleteExam(1, 2);
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public async Task DeleteExam_ExceptionThrown_ReturnsBadRequestWithErrorMessageTest()
+        {
+            Mock<IExamRepository> examRepositoryMock = new Mock<IExamRepository>();
+            examRepositoryMock.Setup(repo => repo.Delete(It.IsAny<int>(), It.IsAny<int>())).Throws(new Exception("Something went wrong"));
+            ExamsController examsController = new ExamsController(examRepositoryMock.Object);
+
+            var result = await examsController.DeleteExam(1, 2);
+            var obj = result as ObjectResult;
+
+            Assert.AreEqual(400, obj.StatusCode);
+            Assert.AreEqual("Something went wrong", obj.Value);
+        }
+
     }
 }
